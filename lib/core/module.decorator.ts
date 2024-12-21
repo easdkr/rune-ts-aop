@@ -1,4 +1,5 @@
 import Container from 'typedi';
+import { PARAMTYPES_METADATA, PROVIDERS_METADATA } from './constants';
 
 export interface ModuleOptions {
   providers?: any[];
@@ -15,10 +16,15 @@ export function Module(options: ModuleOptions): ClassDecorator {
 }
 
 export function instantiateProviders(module: any) {
-  const providers = Reflect.getMetadata('providers', module);
+  const providers = Reflect.getMetadata(PROVIDERS_METADATA, module);
   if (providers) {
     providers.forEach((provider: any) => {
-      Container.set(provider, new provider());
+      // provider의 생성자 매개변수 (의존성) 가져오기
+      const dependencies = Reflect.getMetadata(PARAMTYPES_METADATA, provider) || [];
+      // 의존성 인스턴스 가져오기
+      const instances = dependencies.map((dependency: any) => Container.get(dependency));
+      // 의존성을 주입하여 provider 인스턴스 생성
+      Container.set(provider, new provider(...instances));
     });
   }
 }

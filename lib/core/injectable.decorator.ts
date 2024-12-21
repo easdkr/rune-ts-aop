@@ -1,3 +1,8 @@
 import { Service } from 'typedi';
+import { INJECTABLE_METADATA } from './constants';
 
-export const Injectable = Service;
+export const Injectable = (): ClassDecorator => {
+  return (target: Function) => {
+    Reflect.defineMetadata(INJECTABLE_METADATA, true, target);
+  };
+};
