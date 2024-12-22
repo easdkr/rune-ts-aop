@@ -1,3 +1,4 @@
+import { map, pipe, toArray } from '@fxts/core';
 import { ClassConstructor } from '../types/class-constructor';
 import { PROVIDERS_METADATA, PARAMTYPES_METADATA } from './constants';
 import { rootContainer } from './container';
@@ -12,16 +13,21 @@ export class ModuleResolver {
     if (!providers) return;
 
     providers.forEach((provider: any) => {
-      // provider의 생성자 매개변수 (의존성) 가져오기
-      const dependencies: any[] = Reflect.getMetadata(PARAMTYPES_METADATA, provider) || [];
-      const dependenciesInstances = dependencies.map((dependency) => {
-        const instance = rootContainer.resolve(dependency);
-        // 의존성에 대한 인스턴스가 없다면 재귀적으로 인스턴스 생성
-        if (!instance) this.#instantiateProviders(dependency);
-        return rootContainer.resolve(dependency);
-      });
-      // 의존성을 주입하여 provider 인스턴스 생성
-      rootContainer.register(provider, new provider(...dependenciesInstances));
+      rootContainer.register(provider, this.#resolveInstance(provider));
     });
+  }
+
+  #resolveInstance(Target: any) {
+    const dependenciesInstances = pipe(
+      (Reflect.getMetadata(PARAMTYPES_METADATA, Target) || []) as any[],
+      map((dependency) => {
+        const instance = rootContainer.resolve(dependency);
+        if (!instance) this.#resolveInstance(dependency);
+        return rootContainer.resolve(dependency);
+      }),
+      toArray,
+    );
+
+    return new Target(dependenciesInstances);
   }
 }
