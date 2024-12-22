@@ -1,4 +1,3 @@
-import { Service } from 'typedi';
 import { INJECTABLE_METADATA } from './constants';
 
 export const Injectable = (): ClassDecorator => {

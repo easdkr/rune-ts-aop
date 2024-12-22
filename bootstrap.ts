@@ -1,7 +1,4 @@
-import { rootContainer } from 'lib/core/container';
-import { Injectable } from 'lib/core/injectable.decorator';
-import { ModuleResolver } from 'lib/core/module-resolver';
-import { instantiateModule, Module } from 'lib/core/module.decorator';
+import { Injectable, Module, ModuleResolver, rootContainer } from '@lib/core';
 import 'reflect-metadata';
 
 @Injectable()
