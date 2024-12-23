@@ -9,7 +9,7 @@ module.exports = {
   port: 3000,
   mode: 'render',
   sourcePaths: ['.'],
-  clientEntry: './src/app/client.ts',
+  clientEntry: './bootstrap-client.ts',
   serverEntry: './bootstrap.ts',
   dynamicChunk: true,
   serverDynamicChunk: true,

@@ -1,5 +1,4 @@
 import { AppService } from '@/api/app.service';
-import { ClientRouter } from '@/app/router';
 import { AppPage } from '@/pages';
 import { Controller, Get } from '@lib/common';
 import { MetaView } from '@rune-ts/server';

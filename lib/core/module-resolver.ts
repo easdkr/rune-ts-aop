@@ -1,7 +1,13 @@
 import { flatMap, forEach, map, peek, pipe, toArray } from '@fxts/core';
 import { rootContainer } from './container';
 import { ClassConstructor } from '@lib/types';
-import { CONTROLLERS_METADATA, PARAMTYPES_METADATA, PROVIDERS_METADATA, REQUEST_METHOD_TOKEN } from '@lib/constants';
+import {
+  CONTROLLER_METADATA,
+  CONTROLLERS_METADATA,
+  PARAMTYPES_METADATA,
+  PROVIDERS_METADATA,
+  REQUEST_METHOD_TOKEN,
+} from '@lib/constants';
 import { Router } from 'express';
 import { IRequest } from '@lib/common';
 
@@ -41,6 +47,7 @@ export class ModuleResolver {
         }));
       }),
       forEach(({ method, path, methodName, controller }) => {
+        const _path = Reflect.getMetadata(CONTROLLER_METADATA, controller);
         this.#router[method](path, controller[methodName].bind(controller));
       }),
     );
