@@ -24,8 +24,8 @@ export const requestMethod =
 
 const createRequestMethodDecorator = (method: RequestMethod) => (path?: string) => requestMethod({ method, path });
 
-export const Get = createRequestMethodDecorator(RequestMethod.GET);
 export const Post = createRequestMethodDecorator(RequestMethod.POST);
+export const Get = createRequestMethodDecorator(RequestMethod.GET);
 export const Put = createRequestMethodDecorator(RequestMethod.PUT);
 export const Patch = createRequestMethodDecorator(RequestMethod.PATCH);
 export const Delete = createRequestMethodDecorator(RequestMethod.DELETE);

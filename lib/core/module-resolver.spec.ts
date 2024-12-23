@@ -1,7 +1,6 @@
-import { rootContainer } from '@lib/core';
-import { Injectable } from '@lib/core/injectable.decorator';
+import { Injectable, Module } from '@lib/common';
 import { ModuleResolver } from '@lib/core/module-resolver';
-import { Module } from '@lib/core/module.decorator';
+import { rootContainer } from '@lib/core/container';
 
 describe(ModuleResolver.name, () => {
   describe('instantiate', () => {

@@ -1,7 +1,7 @@
 import { map, pipe, toArray } from '@fxts/core';
-import { ClassConstructor } from '../types/class-constructor';
-import { PROVIDERS_METADATA, PARAMTYPES_METADATA } from './constants';
 import { rootContainer } from './container';
+import { ClassConstructor } from '@lib/types';
+import { PARAMTYPES_METADATA, PROVIDERS_METADATA } from '@lib/constants';
 
 export class ModuleResolver {
   public instantiate(module: ClassConstructor<any>) {
