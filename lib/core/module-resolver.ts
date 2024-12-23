@@ -41,14 +41,16 @@ export class ModuleResolver {
       }),
       flatMap((controller) => {
         const router = Reflect.getMetadata(REQUEST_METHOD_TOKEN, controller) as IRequest[];
+        const _path = Reflect.getMetadata(CONTROLLER_METADATA, controller);
         return router.map((req) => ({
           ...req,
+          path: `/${_path}/${req.path}`.replace(/\/+/g, '/').replace(/\/$/, ''),
           controller: rootContainer.resolve(controller),
         }));
       }),
       forEach(({ method, path, methodName, controller }) => {
-        const _path = Reflect.getMetadata(CONTROLLER_METADATA, controller);
         this.#router[method](path, controller[methodName].bind(controller));
+        console.log(this.#router.stack);
       }),
     );
   }
@@ -58,7 +60,6 @@ export class ModuleResolver {
       (Reflect.getMetadata(PARAMTYPES_METADATA, Target) || []) as any[],
       map((dependency) => {
         const instance = rootContainer.resolve(dependency);
-        console.log('instance', instance);
         if (!instance) this.#resolveInstance(dependency);
         return instance;
       }),
