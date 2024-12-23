@@ -1,4 +1,4 @@
-// require('reflect-metadata');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 /**
@@ -15,21 +15,38 @@ module.exports = {
   serverDynamicChunk: true,
   processReload: true,
   showBundleAnalyzer: false,
-  serverWebpackFinal: (config) => {
+  clientWebpackFinal: (config) => {
     config.resolve = {
+      ...config.resolve,
       extensions: ['.ts', '.js'],
       alias: {
         '@': path.resolve(__dirname, 'src'),
         '@lib': path.resolve(__dirname, 'lib'),
       },
     };
+
+    return config;
+  },
+  serverWebpackFinal: (config) => {
+    config.resolve = {
+      ...config.resolve,
+      extensions: ['.ts', '.js'],
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+        '@lib': path.resolve(__dirname, 'lib'),
+      },
+    };
+
     config.module.rules = [
+      ...config.module.rules,
       {
         test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
     ];
+    config.plugins = [...config.plugins];
+
     return config;
   },
 };

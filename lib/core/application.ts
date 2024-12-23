@@ -12,6 +12,10 @@ export class RuneApplication {
   }
 
   public static create(module: any) {
-    return new RuneApplication(module);
+    return new RuneApplication(module).app;
+  }
+
+  public get app() {
+    return this.#app;
   }
 }
