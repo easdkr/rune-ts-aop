@@ -8,14 +8,15 @@
     "start:dev": "NODE_ENV=development ts-node-dev --transpile-only --respawn -r tsconfig-paths/register --trace-warnings --trace-uncaught -- bootstrap.ts",
     "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "test": "jest --config jest.config.js",
-    "prebuild": "rm -rf dist"
+    "prebuild": "rm -rf dist",
+    "rune:dev": "pnpm rune dev -c rune.config.cjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/express-serve-static-core": "^5.0.2",
+    "@types/express": "^4.17.21",
+    "@types/express-serve-static-core": "^4.17.43",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
@@ -37,8 +38,10 @@
   "dependencies": {
     "@fxts/core": "^1.4.0",
     "@rune-ts/server": "^1.0.23",
+    "express": "^4.21.2",
     "reflect-metadata": "^0.2.2",
     "rune-ts": "^0.8.12",
+    "ts-loader": "^9.5.1",
     "typedi": "^0.10.0"
   }
 }

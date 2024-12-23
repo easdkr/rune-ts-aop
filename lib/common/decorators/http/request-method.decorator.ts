@@ -1,7 +1,6 @@
 import { append, filter, pipe, toArray } from '@fxts/core';
 import { IRequest, RequestMethod } from '@lib/common';
-
-export const REQUEST_METHOD_TOKEN = Symbol('__request_method__');
+import { REQUEST_METHOD_TOKEN } from '@lib/constants';
 
 export interface RequestMethodOption {
   method: RequestMethod;

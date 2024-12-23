@@ -9,6 +9,10 @@ export class Container {
   register(target: any, instance: any): void {
     TypeDiContainer.set(target, instance);
   }
+
+  reset(): void {
+    TypeDiContainer.reset();
+  }
 }
 
 export const rootContainer = new Container();
