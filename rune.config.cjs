@@ -1,4 +1,3 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 /**
@@ -6,11 +5,11 @@ const path = require('path');
  */
 module.exports = {
   name: 'rune-aop',
-  port: 3000,
+  port: 3001,
   mode: 'render',
   sourcePaths: ['.'],
-  clientEntry: './bootstrap-client.ts',
-  serverEntry: './bootstrap.ts',
+  clientEntry: './src/client/bootstrap.ts',
+  serverEntry: './src/server/bootstrap.ts',
   dynamicChunk: true,
   serverDynamicChunk: true,
   processReload: true,
@@ -24,6 +23,15 @@ module.exports = {
         '@lib': path.resolve(__dirname, 'lib'),
       },
     };
+
+    config.module.rules = [
+      ...config.module.rules,
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ];
 
     return config;
   },

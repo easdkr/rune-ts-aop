@@ -1,5 +1,12 @@
-export * from './client-router';
-export * from './navigator-resolver';
-export * from './rune-client';
-export * from './navigator.decorator';
-export * from './page-route.decorator';
+export * from './constants';
+export * from './core';
+import { RuneNavigator, RunePage } from '@lib/client/common/decorators';
+import { RuneClientFactory } from '@lib/client/core';
+import { on } from 'rune-ts';
+
+export namespace RuneClient {
+  export const Page = RunePage;
+  export const Navigator = RuneNavigator;
+  export class Factory extends RuneClientFactory {}
+  export const On = on;
+}
