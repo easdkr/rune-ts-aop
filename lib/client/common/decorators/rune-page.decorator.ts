@@ -1,8 +1,8 @@
 import { PAGE_METADATA } from '@lib/client';
 import { ClassConstructor } from '@lib/server/types';
-import { Page } from 'rune-ts';
+import { Enable, Page } from 'rune-ts';
 
-export function RunePage(key = '') {
+export function RunePage(key?: string) {
   return (target: ClassConstructor<Page<any>>) => {
     const runeKey = key || target.name;
 

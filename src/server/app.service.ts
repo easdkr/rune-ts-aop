@@ -5,6 +5,6 @@ export class AppService {
   constructor() {}
 
   public getHello(): string {
-    return 'Hello World!';
+    return 'Hello Rune!';
   }
 }

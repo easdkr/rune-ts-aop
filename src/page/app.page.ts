@@ -1,11 +1,13 @@
 import { Html, html, Page } from 'rune-ts';
 import style from './app.page.module.scss';
 import { RuneClient } from '@lib/client';
+import { AppEnable } from '@/page/app.enable';
 
 export interface PageProps {
   message: string;
 }
 
+@RuneClient.UseEnables([AppEnable])
 @RuneClient.Page()
 export class AppPage extends Page<PageProps> {
   constructor(props: PageProps) {
@@ -17,10 +19,5 @@ export class AppPage extends Page<PageProps> {
       <span class="${style.title}">${this.data.message}</span>
       <button id="rune-action">Click me</button>
     </div>`;
-  }
-
-  @RuneClient.On('click', '#rune-action')
-  handleClick() {
-    alert('Hello from Rune!');
   }
 }

@@ -1,4 +1,4 @@
-import { SubPage } from '@/client/pages';
+import { SubPage } from '@/page';
 import { Rune } from '@lib/server';
 import { MetaView } from '@rune-ts/server';
 

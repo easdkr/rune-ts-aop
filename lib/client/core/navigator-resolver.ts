@@ -9,10 +9,7 @@ export class NavigatorResolver {
   resolve(navigator: any) {
     pipe(
       (Reflect.getMetadata('pages', navigator) || []) as any[],
-      forEach((page) => {
-        const key = Reflect.getMetadata(PAGE_METADATA, page);
-        this.container.set(key, page);
-      }),
+      forEach((page) => this.container.set(Reflect.getMetadata(PAGE_METADATA, page), page)),
     );
     return hydrate(this.container.resolveAll() as Record<string, any>);
   }
