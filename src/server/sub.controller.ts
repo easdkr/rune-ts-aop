@@ -1,11 +1,10 @@
 import { SubPage } from '@/page';
 import { Rune } from '@lib/server';
-import { MetaView } from '@rune-ts/server';
 
-@Rune.Controller('/sub')
+@Rune.Controller('sub')
 export class SubController {
-  @Rune.Route.Get('')
-  render(_: any, res: any): void {
-    res.send(new MetaView(new SubPage({}), {}).toHtml());
+  @Rune.Get('')
+  public render(@Rune.Query('name') name: string, @Rune.Query('id') id: number): SubPage {
+    return new SubPage({ name, id });
   }
 }

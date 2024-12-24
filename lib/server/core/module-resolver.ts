@@ -10,6 +10,7 @@ import {
 } from '@lib/server/constants';
 import { Router } from 'express';
 import { IRequest } from '@lib/server/common';
+import { handleRouter } from '@lib/server/helper';
 
 export class ModuleResolver {
   #router = Router();
@@ -48,7 +49,10 @@ export class ModuleResolver {
         }));
       }),
       forEach(({ method, path, methodName, controller }) => {
-        this.#router[method](path, controller[methodName].bind(controller));
+        this.#router[method](
+          path,
+          handleRouter(controller[methodName].bind(controller), controller.constructor, methodName),
+        );
       }),
     );
   }

@@ -17,7 +17,7 @@ export class AppPage extends Page<PageProps> {
   template(): Html {
     return html` <div class="${style.container}">
       <span class="${style.title}">${this.data.message}</span>
-      <button id="rune-action">Click me</button>
+      <button class="${style.action}">Click</button>
     </div>`;
   }
 }

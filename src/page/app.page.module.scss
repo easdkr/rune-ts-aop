@@ -1,12 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: #333;
 
   .title {
     font-size: 5rem;
-    color: #aaa;
+    color: #3531ed;
+  }
+
+  .action {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    background-color: #3531ed;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
 }

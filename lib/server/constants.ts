@@ -5,3 +5,4 @@ export const PROVIDERS_METADATA = 'providers';
 export const CONTROLLERS_METADATA = 'controllers';
 export const CONTROLLER_METADATA = Symbol('__controller__');
 export const REQUEST_METHOD_TOKEN = Symbol('__request_method__');
+export const PARAM_METADATA = Symbol('__request_param__');

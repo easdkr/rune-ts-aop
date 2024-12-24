@@ -1,9 +1,10 @@
 import { RuneClient } from '@lib/client';
 import { Enable } from 'rune-ts';
+import style from './app.page.module.scss';
 
 export class AppEnable extends Enable {
-  @RuneClient.On('click', '#rune-action')
+  @RuneClient.On('click', `.${style.action}`)
   handleClick() {
-    alert('Hello from Rune!');
+    alert('Rune is working!');
   }
 }
