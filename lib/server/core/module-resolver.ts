@@ -7,10 +7,12 @@ import {
   PARAMTYPES_METADATA,
   PROVIDERS_METADATA,
   REQUEST_METHOD_TOKEN,
+  RESPONSE_VIEW_TOKEN,
 } from '@lib/server/constants';
 import { Router } from 'express';
-import { IRequest } from '@lib/server/common';
+import { IRequest, ResponseViewOptions } from '@lib/server/common';
 import { handleRouter, JsonResponseStrategy, ResponseStrategySelector, RuneResponseStrategy } from '@lib/server/helper';
+import { MetaView } from '@rune-ts/server';
 
 export class ModuleResolver {
   #router = Router();
@@ -24,10 +26,29 @@ export class ModuleResolver {
   public instantiate(module: ClassConstructor<any>) {
     this.#instantiateProviders(module);
     this.#instantiateControllers(module);
+    this.#mapToResponseViewAndRouter(module);
   }
 
   public get router() {
     return this.#router;
+  }
+
+  #mapToResponseViewAndRouter(module: ClassConstructor<any>) {
+    return pipe(
+      (Reflect.getMetadata('views', module) || []) as any[],
+      map((view) => {
+        const viewOptions = Reflect.getMetadata(RESPONSE_VIEW_TOKEN, view) as ResponseViewOptions;
+        return {
+          path: viewOptions.path,
+          view,
+        };
+      }),
+      forEach(({ path, view }) => {
+        this.#router.get(path, (req, res) => {
+          res.status(200).send(new MetaView(new view({}), {}).toHtml());
+        });
+      }),
+    );
   }
 
   #instantiateProviders(module: ClassConstructor<any>) {

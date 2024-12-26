@@ -11,6 +11,7 @@ export class AppRepository {
   ] as [number, string][];
 
   #emptyMenu: [number, string] = [-1, 'unknown'];
+
   public findOne(id: number) {
     return this.#dummyMenu.find((data) => data[0] === id) ?? this.#emptyMenu;
   }

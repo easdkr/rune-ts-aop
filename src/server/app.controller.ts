@@ -15,11 +15,11 @@ export class AppController {
 
   @Rune.Get('@api')
   async api(): Promise<{ message: string }> {
-    return { message: 'api' };
+    return Promise.resolve({ message: 'api' });
   }
 
   @Rune.Get('menu/:id')
-  async id(@Rune.Param('id') id: number) {
+  async id(@Rune.Param('id') id: number): Promise<MenuPage> {
     const [menuId, name] = await this.appService.findOne(+id);
 
     return new MenuPage({

@@ -1,6 +1,9 @@
+import { Page } from 'rune-ts';
+
 export interface ModuleOptions {
   providers?: any[];
   controllers?: any[];
+  views?: (typeof Page<any>)[];
 }
 
 export function Module(options: ModuleOptions): ClassDecorator {
