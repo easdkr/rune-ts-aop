@@ -1,5 +1,5 @@
 const path = require('path');
-
+const TerserPlugin = require('terser-webpack-plugin');
 /**
  * @type {import('@rune-ts/server').RuneConfigType}
  */
@@ -33,6 +33,19 @@ module.exports = {
       },
     ];
 
+    config.optimization.minimizer = [
+      new TerserPlugin({
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          mangle: {
+            keep_classnames: true,
+            keep_fnames: true,
+          },
+        },
+      }),
+    ];
+
     return config;
   },
   serverWebpackFinal: (config) => {
@@ -53,8 +66,21 @@ module.exports = {
         exclude: /node_modules/,
       },
     ];
+
     config.plugins = [...config.plugins];
 
+    config.optimization.minimizer = [
+      new TerserPlugin({
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          mangle: {
+            keep_classnames: true,
+            keep_fnames: true,
+          },
+        },
+      }),
+    ];
     return config;
   },
 };
