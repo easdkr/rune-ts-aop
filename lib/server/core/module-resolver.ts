@@ -10,10 +10,16 @@ import {
 } from '@lib/server/constants';
 import { Router } from 'express';
 import { IRequest } from '@lib/server/common';
-import { handleRouter } from '@lib/server/helper';
+import { handleRouter, JsonResponseStrategy, ResponseStrategySelector, RuneResponseStrategy } from '@lib/server/helper';
 
 export class ModuleResolver {
   #router = Router();
+  #responseStrategySelector = new ResponseStrategySelector();
+
+  constructor() {
+    this.#responseStrategySelector.register('json', new JsonResponseStrategy());
+    this.#responseStrategySelector.register('rune', new RuneResponseStrategy());
+  }
 
   public instantiate(module: ClassConstructor<any>) {
     this.#instantiateProviders(module);
@@ -25,48 +31,57 @@ export class ModuleResolver {
   }
 
   #instantiateProviders(module: ClassConstructor<any>) {
-    const providers = Reflect.getMetadata(PROVIDERS_METADATA, module);
-    if (!providers) return;
-    providers.forEach((provider: any) => rootContainer.register(provider, this.#resolveInstance(provider)));
+    pipe(
+      (Reflect.getMetadata(PROVIDERS_METADATA, module) || []) as any[],
+      forEach((provider) => rootContainer.register(provider, this.#resolveInstance(provider))),
+    );
   }
 
   #instantiateControllers(module: ClassConstructor<any>) {
-    const controllers = Reflect.getMetadata(CONTROLLERS_METADATA, module);
-    if (!controllers) return;
-
     pipe(
       (Reflect.getMetadata(CONTROLLERS_METADATA, module) || []) as any[],
-      peek((controller) => {
-        rootContainer.register(controller, this.#resolveInstance(controller));
-      }),
-      flatMap((controller) => {
-        const router = Reflect.getMetadata(REQUEST_METHOD_TOKEN, controller) as IRequest[];
-        const _path = Reflect.getMetadata(CONTROLLER_METADATA, controller);
-        return router.map((req) => ({
-          ...req,
-          path: `/${_path}/${req.path}`.replace(/\/+/g, '/').replace(/\/$/, ''),
-          controller: rootContainer.resolve(controller),
-        }));
-      }),
-      forEach(({ method, path, methodName, controller }) => {
+      peek((controller) => rootContainer.register(controller, this.#resolveInstance(controller))),
+      flatMap((controller) =>
+        pipe(
+          (Reflect.getMetadata(REQUEST_METHOD_TOKEN, controller) || []) as IRequest[],
+          map((req) => ({
+            ...req,
+            path: `/${Reflect.getMetadata(CONTROLLER_METADATA, controller)}/${req.path}`
+              .replace(/\/+/g, '/')
+              .replace(/\/$/, ''),
+            controller: rootContainer.resolve(controller),
+          })),
+        ),
+      ),
+      forEach(({ method, path, methodName, controller }) =>
         this.#router[method](
           path,
-          handleRouter(controller[methodName].bind(controller), controller.constructor, methodName),
-        );
-      }),
+          handleRouter(
+            controller[methodName].bind(controller),
+            controller.constructor,
+            methodName,
+            this.#responseStrategySelector,
+          ),
+        ),
+      ),
     );
   }
 
   #resolveInstance(Target: any) {
-    const dependenciesInstances = pipe(
+    const alreadyRegistered = rootContainer.resolve(Target);
+    if (alreadyRegistered) return alreadyRegistered;
+
+    const dependenciesInstances: any = pipe(
       (Reflect.getMetadata(PARAMTYPES_METADATA, Target) || []) as any[],
       map((dependency) => {
         const instance = rootContainer.resolve(dependency);
-        if (!instance) this.#resolveInstance(dependency);
-        return instance;
+        if (instance) return instance;
+        return this.#resolveInstance(dependency);
       }),
     );
 
-    return new Target(...dependenciesInstances);
+    const instance = new Target(...dependenciesInstances);
+    rootContainer.register(Target, instance);
+    return instance;
   }
 }

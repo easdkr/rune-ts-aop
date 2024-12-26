@@ -1,10 +1,10 @@
 import { AppController } from '@/server/app.controller';
+import { AppRepository } from '@/server/app.repository';
 import { AppService } from '@/server/app.service';
-import { SubController } from '@/server/sub.controller';
 import { Rune } from '@lib/server';
 
 @Rune.Module({
-  providers: [AppService],
-  controllers: [AppController, SubController],
+  providers: [AppService, AppRepository],
+  controllers: [AppController],
 })
 export class AppModule {}

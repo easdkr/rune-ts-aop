@@ -1,2 +1,2 @@
 export * from './app.page';
-export * from './sub.page';
+export * from './menu.page';

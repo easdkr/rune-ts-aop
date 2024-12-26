@@ -52,9 +52,9 @@ describe(ModuleResolver.name, () => {
       expect(rootContainer.resolve(FirstService)).toBeInstanceOf(FirstService);
       expect(rootContainer.resolve(SecondService)).toBeInstanceOf(SecondService);
       expect(rootContainer.resolve(ThirdService)).toBeInstanceOf(ThirdService);
-      expect(rootContainer.resolve(FirstService).test()).toBe('[FirstService] test');
-      expect(rootContainer.resolve(SecondService).test()).toBe('[SecondService] test');
-      expect(rootContainer.resolve(ThirdService).test()).toBe('[ThirdService] test');
+      expect(rootContainer.resolve(FirstService)!.test()).toBe('[FirstService] test');
+      expect(rootContainer.resolve(SecondService)!.test()).toBe('[SecondService] test');
+      expect(rootContainer.resolve(ThirdService)!.test()).toBe('[ThirdService] test');
     });
 
     it('provider 의 다중 의존성이 재귀적으로 인스턴스화', () => {
@@ -124,7 +124,7 @@ describe(ModuleResolver.name, () => {
       // then
       expect(rootContainer.resolve(FixtureController)).toBeInstanceOf(FixtureController);
       expect(rootContainer.resolve(FixtureService)).toBeInstanceOf(FixtureService);
-      expect(rootContainer.resolve(FixtureController).test()).toBe('[FixtureService] test');
+      expect(rootContainer.resolve(FixtureController)!.test()).toBe('[FixtureService] test');
     });
   });
 });

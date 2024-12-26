@@ -2,8 +2,12 @@ import { ClassConstructor } from '@lib/server/types';
 import { Container as TypeDiContainer } from 'typedi';
 
 export class Container {
-  resolve<T = any>(target: ClassConstructor<T>): T {
-    return TypeDiContainer.get(target as any);
+  resolve<T = any>(target: ClassConstructor<T>): T | null {
+    try {
+      return TypeDiContainer.get(target);
+    } catch {
+      return null;
+    }
   }
 
   register(target: any, instance: any): void {

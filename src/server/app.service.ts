@@ -1,11 +1,16 @@
+import { AppRepository } from '@/server/app.repository';
 import { delay } from '@fxts/core';
 import { Rune } from '@lib/server';
 
 @Rune.Injectable()
 export class AppService {
-  constructor() {}
+  constructor(private readonly appRepository: AppRepository) {}
 
-  public getHello() {
+  public hello() {
     return delay(500, 'Hello from Rune!');
+  }
+
+  public findOne(id: number): [number, string] {
+    return this.appRepository.findOne(id);
   }
 }

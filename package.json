@@ -9,7 +9,9 @@
     "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "test": "jest --config jest.config.js",
     "prebuild": "rm -rf dist",
-    "rune:dev": "pnpm rune dev -c rune.config.cjs"
+    "rune:dev": "pnpm rune dev -c rune.config.cjs",
+    "rune:build": "pnpm rune build -c rune.config.cjs",
+    "rune:start": "pnpm rune start -c rune.config.cjs"
   },
   "keywords": [],
   "author": "",
