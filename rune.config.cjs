@@ -1,5 +1,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 /**
  * @type {import('@rune-ts/server').RuneConfigType}
  */
@@ -45,6 +46,10 @@ module.exports = {
         },
       }),
     ];
+    const cleanPluginIndex = config.plugins.findIndex((plugin) => plugin instanceof CleanWebpackPlugin);
+    if (cleanPluginIndex > -1) {
+      config.plugins.splice(cleanPluginIndex, 1);
+    }
 
     return config;
   },
@@ -67,8 +72,6 @@ module.exports = {
       },
     ];
 
-    config.plugins = [...config.plugins];
-
     config.optimization.minimizer = [
       new TerserPlugin({
         parallel: true,
@@ -81,6 +84,11 @@ module.exports = {
         },
       }),
     ];
+    // remove original clean webpack plugin
+    const cleanPluginIndex = config.plugins.findIndex((plugin) => plugin instanceof CleanWebpackPlugin);
+    if (cleanPluginIndex > -1) {
+      config.plugins.splice(cleanPluginIndex, 1);
+    }
     return config;
   },
 };
