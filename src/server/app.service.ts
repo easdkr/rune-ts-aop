@@ -1,6 +1,6 @@
-import { AppRepository } from '@/server/app.repository';
 import { delay } from '@fxts/core';
-import { Rune } from '@lib/server';
+import { Rune } from '../../lib/server';
+import { AppRepository } from './app.repository';
 
 @Rune.Injectable()
 export class AppService {

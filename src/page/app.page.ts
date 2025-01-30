@@ -1,7 +1,7 @@
 import { Html, html, Page } from 'rune-ts';
 import style from './app.page.module.scss';
-import { RuneClient } from '@lib/client';
-import { AppEnable } from '@/page/app.enable';
+import { RuneClient } from '../../lib/client';
+import { AppEnable } from './app.enable';
 
 export interface PageProps {
   message: string;

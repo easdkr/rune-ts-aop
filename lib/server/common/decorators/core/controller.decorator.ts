@@ -1,4 +1,4 @@
-import { CONTROLLER_METADATA } from '@lib/server/constants';
+import { CONTROLLER_METADATA } from '../../../constants';
 
 export function Controller(path = ''): ClassDecorator {
   return (target) => {

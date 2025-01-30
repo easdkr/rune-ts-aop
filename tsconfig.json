@@ -9,10 +9,6 @@
     "moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "paths": {
-      "@/*": ["src/*"],
-      "@lib/*": ["lib/*"]
-    },
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

@@ -1,8 +1,8 @@
 import { forEach, pipe } from '@fxts/core';
-import { RequestMetadata } from '@lib/server/common/decorators/http/param.decorator';
-import { PARAM_METADATA } from '@lib/server/constants';
-import { ClassConstructor } from '@lib/server/types';
 import { Request } from 'express';
+import { RequestMetadata } from '../common';
+import { PARAM_METADATA } from '../constants';
+import { ClassConstructor } from '../types';
 
 export function resolveMethodParameters(req: Request, target: ClassConstructor<any>, methodName: string) {
   const args = new Array<unknown>((target as any)[methodName]?.length ?? 0);

@@ -1,7 +1,7 @@
 import { html, Html, on, Page } from 'rune-ts';
 import style from './app.response-view.module.scss';
-import { ResponseView } from '@lib/server/common';
 import { delay } from '@fxts/core';
+import { ResponseView } from '../../lib/server/common';
 
 @ResponseView({ path: '/app' })
 export class AppResponseView extends Page<{}> {

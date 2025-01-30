@@ -1,18 +1,18 @@
 import { flatMap, forEach, map, peek, pipe, toArray } from '@fxts/core';
 import { rootContainer } from './container';
-import { ClassConstructor } from '@lib/server/types';
-import {
-  CONTROLLER_METADATA,
-  CONTROLLERS_METADATA,
-  PARAMTYPES_METADATA,
-  PROVIDERS_METADATA,
-  REQUEST_METHOD_TOKEN,
-  RESPONSE_VIEW_TOKEN,
-} from '@lib/server/constants';
-import { Router } from 'express';
-import { IRequest, ResponseViewOptions } from '@lib/server/common';
-import { handleRouter, JsonResponseStrategy, ResponseStrategySelector, RuneResponseStrategy } from '@lib/server/helper';
 import { MetaView } from '@rune-ts/server';
+import { Router } from 'express';
+import { ResponseViewOptions, IRequest } from '../common';
+import {
+  RESPONSE_VIEW_TOKEN,
+  PROVIDERS_METADATA,
+  CONTROLLERS_METADATA,
+  REQUEST_METHOD_TOKEN,
+  CONTROLLER_METADATA,
+  PARAMTYPES_METADATA,
+} from '../constants';
+import { ResponseStrategySelector, JsonResponseStrategy, RuneResponseStrategy, handleRouter } from '../helper';
+import { ClassConstructor } from '../types';
 
 export class ModuleResolver {
   #router = Router();

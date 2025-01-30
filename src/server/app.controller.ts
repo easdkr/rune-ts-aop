@@ -1,6 +1,6 @@
-import { AppPage, MenuPage } from '@/page';
-import { AppService } from '@/server/app.service';
-import { Rune } from '@lib/server';
+import { Rune } from '../../lib/server';
+import { AppPage, MenuPage } from '../page';
+import { AppService } from './app.service';
 
 @Rune.Controller('')
 export class AppController {

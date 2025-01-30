@@ -1,7 +1,7 @@
-import { Rune } from '@lib/server';
-import { Injectable, Controller, Get } from '@lib/server/common';
-import { rootContainer } from '@lib/server/core/container';
-import { ModuleResolver } from '@lib/server/core/module-resolver';
+import { Rune } from '..';
+import { Injectable, Controller, Get } from '../common';
+import { rootContainer } from './container';
+import { ModuleResolver } from './module-resolver';
 
 describe(ModuleResolver.name, () => {
   afterEach(() => {

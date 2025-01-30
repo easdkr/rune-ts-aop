@@ -1,5 +1,5 @@
-import { ModuleResolver } from '@lib/server/core';
 import { app, RuneServer } from '@rune-ts/server';
+import { ModuleResolver } from './module-resolver';
 
 export class RuneApplication {
   #moduleResolver = new ModuleResolver();

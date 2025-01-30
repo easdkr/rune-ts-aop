@@ -1,5 +1,6 @@
-import { NavigatorResolver, RunePageContainer } from '@lib/client';
 import { hydrate } from '@rune-ts/server';
+import { NavigatorResolver } from './navigator-resolver';
+import { RunePageContainer } from './page-container';
 
 export class RuneClientFactory {
   #navigatorResolver: NavigatorResolver;

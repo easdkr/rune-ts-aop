@@ -1,6 +1,6 @@
-import { PAGE_METADATA } from '@lib/client/constants';
-import { ClassConstructor } from '@lib/server/types';
 import { Enable, View } from 'rune-ts';
+import { ClassConstructor } from '../../../server/types';
+import { PAGE_METADATA } from '../../constants';
 
 /**
  * 2) enables 인스턴스화 담당

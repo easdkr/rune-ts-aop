@@ -1,6 +1,6 @@
-import { RuneClient } from '@lib/client';
 import { Enable } from 'rune-ts';
 import style from './app.page.module.scss';
+import { RuneClient } from '../../lib/client';
 
 export class AppEnable extends Enable {
   @RuneClient.On('click', `.${style.action}`)

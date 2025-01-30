@@ -1,5 +1,5 @@
 import { append, pipe, toArray } from '@fxts/core';
-import { PARAM_METADATA } from '@lib/server/constants';
+import { PARAM_METADATA } from '../../../constants';
 
 export interface RequestMetadata {
   index: number;

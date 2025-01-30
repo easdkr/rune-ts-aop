@@ -1,6 +1,5 @@
-import { AppResponseView, MenuPage } from '@/page';
-import { AppPage } from '@/page/app.page';
-import { RuneClient } from '@lib/client';
+import { RuneClient } from '../../lib/client';
+import { AppPage, MenuPage, AppResponseView } from '../page';
 
 @RuneClient.Navigator({
   pages: [AppPage, MenuPage, AppResponseView],

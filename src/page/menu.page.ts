@@ -1,5 +1,5 @@
-import { RuneClient } from '@lib/client';
 import { html, Html, Page } from 'rune-ts';
+import { RuneClient } from '../../lib/client';
 
 export interface MenuPageProps {
   id: number;

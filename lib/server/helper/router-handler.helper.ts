@@ -1,7 +1,7 @@
-import { resolveMethodParameters } from '@lib/server/helper/resolve-method-parameters.helper';
-import { ResponseStrategySelector } from '@lib/server/helper/response.strategy.selector';
-import { AnonymousFunction, ClassConstructor } from '@lib/server/types';
 import { NextFunction, Request, Response } from 'express';
+import { AnonymousFunction, ClassConstructor } from '../types';
+import { resolveMethodParameters } from './resolve-method-parameters.helper';
+import { ResponseStrategySelector } from './response.strategy.selector';
 
 export function handleRouter(
   handler: AnonymousFunction,

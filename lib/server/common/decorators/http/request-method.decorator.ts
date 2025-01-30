@@ -1,7 +1,7 @@
 import { append, filter, pipe, toArray } from '@fxts/core';
-import { RequestMethod } from '@lib/server/common/enums';
-import { IRequest } from '@lib/server/common/types';
-import { REQUEST_METHOD_TOKEN } from '@lib/server/constants';
+import { REQUEST_METHOD_TOKEN } from '../../../constants';
+import { RequestMethod } from '../../enums';
+import { IRequest } from '../../types';
 
 export interface RequestMethodOption {
   method: RequestMethod;

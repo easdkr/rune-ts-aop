@@ -1,8 +1,8 @@
 export * from './constants';
 export * from './core';
-import { RuneNavigator, RunePage, RuneUseEnables } from '@lib/client/common/decorators';
-import { RuneClientFactory } from '@lib/client/core';
 import { on } from 'rune-ts';
+import { RunePage, RuneUseEnables, RuneNavigator } from './common/decorators';
+import { RuneClientFactory } from './core';
 
 export namespace RuneClient {
   export const Page = RunePage;

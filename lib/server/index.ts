@@ -14,8 +14,8 @@ import {
   Req as _Req,
   Res as _Res,
   Headers as _Headers,
-} from '@lib/server/common';
-import { RuneApplication } from '@lib/server/core';
+} from '../server/common';
+import { RuneApplication } from '../server/core';
 
 export namespace Rune {
   export const Controller = RuneController;

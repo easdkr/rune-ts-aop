@@ -1,5 +1,5 @@
-import { ClassConstructor } from '@lib/server/types';
 import { Container as TypeDiContainer } from 'typedi';
+import { ClassConstructor } from '../types';
 
 export class Container {
   resolve<T = any>(target: ClassConstructor<T>): T | null {

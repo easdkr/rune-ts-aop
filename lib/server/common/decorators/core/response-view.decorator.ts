@@ -1,8 +1,8 @@
-import { PAGE_METADATA } from '@lib/client';
-import { RESPONSE_VIEW_TOKEN } from '@lib/server/constants';
-import { ClassConstructor } from '@lib/server/types';
 import { Request, Response } from 'express';
 import { View } from 'rune-ts';
+import { ClassConstructor } from '../../../types';
+import { PAGE_METADATA } from '../../../../client';
+import { RESPONSE_VIEW_TOKEN } from '../../../constants';
 
 export interface ResponseViewMiddleware {
   use(req: Request, res: Response, next: Function): void;

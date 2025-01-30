@@ -1,4 +1,4 @@
-import { INJECTABLE_METADATA } from '@lib/server/constants';
+import { INJECTABLE_METADATA } from '../../../constants';
 
 export const Injectable = (): ClassDecorator => {
   return (target: Function) => {

@@ -1,4 +1,4 @@
-import { RequestMethod } from '@lib/server/common';
+import { RequestMethod } from '../enums';
 
 export interface IRequest {
   path: string;

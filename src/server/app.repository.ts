@@ -1,4 +1,4 @@
-import { Injectable } from '@lib/server/common';
+import { Injectable } from '../../lib/server/common';
 
 @Injectable()
 export class AppRepository {
