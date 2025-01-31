@@ -6,12 +6,12 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Rune.Get()
-  async hello(): Promise<AppPage> {
-    const message = await this.appService.hello();
+  // @Rune.Get()
+  // async hello(): Promise<AppPage> {
+  //   const message = await this.appService.hello();
 
-    return new AppPage({ message });
-  }
+  //   return new AppPage({ message });
+  // }
 
   @Rune.Get('@api')
   async api(): Promise<{ message: string }> {

@@ -1,4 +1,4 @@
-import { flatMap, forEach, map, peek, pipe, toArray } from '@fxts/core';
+import { flatMap, forEach, map, peek, pipe, reduce, reduceLazy, toArray, toAsync } from '@fxts/core';
 import { rootContainer } from './container';
 import { MetaView } from '@rune-ts/server';
 import { Router } from 'express';
@@ -13,6 +13,9 @@ import {
 } from '../constants';
 import { ResponseStrategySelector, JsonResponseStrategy, RuneResponseStrategy, handleRouter } from '../helper';
 import { ClassConstructor } from '../types';
+import { USE_INITIALIZER_TOKEN } from '../../shared/decorators/use-initializer.decorator';
+import { Initializer } from '../../shared/initializer';
+import { Context } from '../../shared';
 
 export class ModuleResolver {
   #router = Router();
@@ -34,18 +37,39 @@ export class ModuleResolver {
   }
 
   #mapToResponseViewAndRouter(module: ClassConstructor<any>) {
-    return pipe(
+    pipe(
       (Reflect.getMetadata('views', module) || []) as any[],
       map((view) => {
         const viewOptions = Reflect.getMetadata(RESPONSE_VIEW_TOKEN, view) as ResponseViewOptions;
+        const initializers = Reflect.getMetadata(USE_INITIALIZER_TOKEN, view) || [];
         return {
           path: viewOptions.path,
+          initializers,
           view,
         };
       }),
-      forEach(({ path, view }) => {
-        this.#router.get(path, (req, res) => {
-          res.status(200).send(new MetaView(new view({}), {}).toHtml());
+      forEach(({ path, view, initializers }) => {
+        const initializerInstances = pipe(
+          initializers,
+          map((initializers) => this.#resolveInstance(initializers)),
+          toArray,
+        ) as Initializer<any>[];
+
+        this.#router.get(path, async (req, res) => {
+          const context = await pipe(
+            initializerInstances,
+            toAsync,
+            reduceLazy(
+              async (context, curr) => {
+                const data = await curr.initialize(context);
+                context.data = data;
+                return context;
+              },
+              new Context(req, res),
+            ),
+          );
+
+          res.send(new MetaView(new view(context.data), {}).toHtml());
         });
       }),
     );

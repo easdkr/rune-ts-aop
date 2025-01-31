@@ -1,7 +1,7 @@
 import { RuneClient } from '../../lib/client';
-import { AppPage, MenuPage, AppResponseView } from '../page';
+import { AppPage, MenuPage } from '../page';
 
 @RuneClient.Navigator({
-  pages: [AppPage, MenuPage, AppResponseView],
+  pages: [AppPage, MenuPage],
 })
 export class AppNavigator {}
